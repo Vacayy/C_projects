@@ -375,4 +375,30 @@ int rbtree_erase(rbtree *t, node_t *target) {
   return 0;
 };
 
+////////////////////// 배열 반환 연산 구현부 ///////////////////////////
+
+void inorder_traversal(rbtree *t, node_t *x, key_t *arr, int *i){  
+  if (x != t->nil){
+    inorder_traversal(t, x->left, arr, i);
+    arr[*i] = x->key;    
+    (*i)++;    
+    inorder_traversal(t, x->right, arr, i);
+  };
+}
+
+
+int rbtree_to_array(const rbtree *t, key_t *arr, const size_t n) {
+  // arr에 오름차순 정렬한 결과를 넣어주면 된다. 
+  // call by reference -> 함수 인자를 포인터로 줌으로써 값에 직접 접근
+  int i = 0;
+  inorder_traversal(t, t->root, arr, &i); 
+  
+  // // test code
+  // for (int i = 0; i < n; i++){
+  //   printf("arr[%d] = %d \n", i, arr[i]);
+  // }
+  
+  return 0;
+}
+
 
