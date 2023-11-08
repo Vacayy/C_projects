@@ -14,7 +14,7 @@ void test_init(void) {
 #else
   assert(t->root == NULL);
 #endif
-  delete_rbtree(t);
+  delete_rbtree(t); 
 }
 
 // root node should have proper values and pointers
@@ -130,10 +130,10 @@ void test_minmax(key_t *arr, const size_t n) {
 void test_to_array(rbtree *t, const key_t *arr, const size_t n) {
   assert(t != NULL);
 
-  insert_arr(t, arr, n);
-  qsort((void *)arr, n, sizeof(key_t), comp);
+  insert_arr(t, arr, n); // rbtree에 arr 넣기
+  qsort((void *)arr, n, sizeof(key_t), comp); // arr 정렬
 
-  key_t *res = calloc(n, sizeof(key_t));
+  key_t *res = calloc(n, sizeof(key_t)); // key값 배열 선언
   rbtree_to_array(t, res, n);
   for (int i = 0; i < n; i++) {
     assert(arr[i] == res[i]);
@@ -315,17 +315,16 @@ void test_find_erase(rbtree *t, const key_t *arr, const size_t n) {
     node_t *p = rbtree_insert(t, arr[i]);
     assert(p != NULL);
   }
-
-  for (int i = 0; i < n; i++) {
-    node_t *p = rbtree_find(t, arr[i]);
-    // printf("arr[%d] = %d\n", i, arr[i]);
+  
+  for (int i = 0; i < n; i++) {    
+    node_t *p = rbtree_find(t, arr[i]);    
     assert(p != NULL);
     assert(p->key == arr[i]);
     rbtree_erase(t, p);
   }
 
   for (int i = 0; i < n; i++) {
-    node_t *p = rbtree_find(t, arr[i]);
+    node_t *p = rbtree_find(t, arr[i]);       
     assert(p == NULL);
   }
 
